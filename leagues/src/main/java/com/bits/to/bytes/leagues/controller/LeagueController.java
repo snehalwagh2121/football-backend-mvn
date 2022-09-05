@@ -9,10 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +26,20 @@ public class LeagueController {
     public ResponseEntity<List<LeagueDBMapper>> getAllLeagues() {
         logger.info("Scheduler to get leagues started");
         List<LeagueDBMapper> leagues = leagueService.getLeagues();
+        if(leagues!=null && leagues.size()>0){
+            logger.info("response: "+leagues);
+            logger.info("Scheduler to get leagues ended: leagues count: " + leagues.size());
+            return new ResponseEntity<>(leagues, HttpStatus.OK);
+        }else{
+            logger.info("leagues is null ");
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/byseason/{year}")
+    public ResponseEntity<List<LeagueDBMapper>> getLeaguesBySeason(@PathVariable int year) {
+        logger.info("Scheduler to get leagues started");
+        List<LeagueDBMapper> leagues = leagueService.getLeaguesBySeason(year);
         if(leagues!=null && leagues.size()>0){
             logger.info("response: "+leagues);
             logger.info("Scheduler to get leagues ended: leagues count: " + leagues.size());

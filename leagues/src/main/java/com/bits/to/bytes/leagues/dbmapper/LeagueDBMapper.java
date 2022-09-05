@@ -14,4 +14,5 @@ public class LeagueDBMapper {
     private String name;
     private String type;
     private String country;
+    private int seasonYear;
 }

@@ -1,6 +1,6 @@
 package com.bits.to.bytes.leagues.model;
 
-import com.bits.to.bytes.leagues.dbmapper.SeasonsDBMapper;
+import com.bits.to.bytes.seasons.dbMapper.SeasonsDBMapper;
 import lombok.*;
 
 import java.util.List;

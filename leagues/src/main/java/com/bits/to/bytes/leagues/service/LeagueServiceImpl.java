@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class LeagueServiceImpl implements LeagueService {
@@ -29,8 +28,7 @@ public class LeagueServiceImpl implements LeagueService {
         try {
             if (leagueDBMappers == null || leagueDBMappers.size() < 1) {
                 logger.info("Leagues not present in Db hence calling external api");
-                leagueDBMappers = extAPICalls.callLeagueAPI().stream()
-                        .map(league -> leaguesObjectMapper.mapLeagueToDBLeague(league)).collect(Collectors.toList());
+                leagueDBMappers = extAPICalls.callLeagueAPI();
             }
         } catch (Exception e) {
             leagueDBMappers = null;
@@ -39,5 +37,23 @@ public class LeagueServiceImpl implements LeagueService {
             e.printStackTrace();
         }
         return leagueDBMappers;
+    }
+
+    @Override
+    public List<LeagueDBMapper> getLeaguesBySeason(int year) {
+        logger.info("getting leagues for season: " + year);
+        List<LeagueDBMapper> leaguesBySeason = leagueDao.getLeaguesBySeasonYear(year);
+        try {
+            if (leaguesBySeason == null || leaguesBySeason.size() < 1) {
+                logger.info("leagues not present in DB for season: " + year);
+                leaguesBySeason = extAPICalls.callLeagueBySeasonsAPI(year);
+            }
+        } catch (Exception e) {
+            leaguesBySeason = null;
+            logger.error("exception occured");
+            logger.error(e.getMessage());
+            e.printStackTrace();
+        }
+        return leaguesBySeason;
     }
 }
