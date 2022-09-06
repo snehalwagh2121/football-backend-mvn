@@ -23,7 +23,7 @@ public class LeagueDaoImpl {
             leagueRepository.saveAll(leagueList);
             return true;
         } catch (Exception e) {
-            logger.error("exceptiuon occured while saving objects");
+            logger.error("exception occured while saving objects");
             logger.error(e.getMessage());
             e.printStackTrace();
             return false;
@@ -59,7 +59,7 @@ public class LeagueDaoImpl {
             leagueRepository.saveAll(leagueList);
             return true;
         } catch (Exception e) {
-            logger.error("exceptiuon occured while saving objects");
+            logger.error("exception occured while saving objects");
             logger.error(e.getMessage());
             e.printStackTrace();
             return false;
