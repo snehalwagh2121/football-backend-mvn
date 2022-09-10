@@ -1,7 +1,6 @@
 package com.bits.to.bytes.leagues.mapper;
 
 import com.bits.to.bytes.leagues.dbmapper.LeagueDBMapper;
-import com.bits.to.bytes.leagues.model.League;
 import com.bits.to.bytes.leagues.model.LeagueInteralResponse;
 import org.springframework.stereotype.Component;
 
@@ -30,22 +29,22 @@ public class LeaguesObjectMapper {
     }
 
 
-    public List<LeagueDBMapper> mapLeagueToDBLeague(League league) {
-
-        List<LeagueDBMapper> leaguesList = league.getSeasons()
-                .stream()
-                .map(seasons -> {
-                    LeagueDBMapper leagueDBObj = LeagueDBMapper.builder()
-                            .leagueId(league.getLeagueId())
-                            .name(league.getName())
-                            .country(league.getCountry())
-                            .type(league.getType())
-                            .seasonYear(seasons.getYear())
-                            .build();
-                    return leagueDBObj;
-                }).collect(Collectors.toList());
-
-        return leaguesList;
-
-    }
+//    public List<LeagueDBMapper> mapLeagueToDBLeague(League league) {
+//
+//        List<LeagueDBMapper> leaguesList = league.getSeasons()
+//                .stream()
+//                .map(seasons -> {
+//                    LeagueDBMapper leagueDBObj = LeagueDBMapper.builder()
+//                            .leagueId(league.getLeagueId())
+//                            .name(league.getName())
+//                            .country(league.getCountry())
+//                            .type(league.getType())
+//                            .seasonYear(seasons.getYear())
+//                            .build();
+//                    return leagueDBObj;
+//                }).collect(Collectors.toList());
+//
+//        return leaguesList;
+//
+//    }
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:9005", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/players")
 public class PlayersController {
@@ -22,8 +23,8 @@ public class PlayersController {
 
     Gson gson= new Gson();
 
-    @GetMapping("/getplayers")
-    public ResponseEntity<List<Players>> getPlayersbyTeamnSeason(@RequestParam int teamId, @RequestParam int season){
+    @GetMapping("/getplayers/{teamId}/{season}")
+    public ResponseEntity<List<Players>> getPlayersbyTeamnSeason(@PathVariable int teamId, @PathVariable int season){
         logger.info("inside controller of players");
         logger.info("get players of team: "+teamId+" for season: "+season);
         List<Players> players= playersService.getPlayers(teamId, season);

@@ -1,9 +1,8 @@
 package com.bits.to.bytes.leagues.controller;
 
 import com.bits.to.bytes.leagues.dbmapper.LeagueDBMapper;
-import com.bits.to.bytes.leagues.model.League;
 import com.bits.to.bytes.leagues.service.LeagueService;
-import com.bits.to.bytes.leagues.util.ExtAPICalls;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:9005", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/league")
 public class LeagueController {
@@ -21,6 +20,8 @@ public class LeagueController {
 
     @Autowired
     LeagueService leagueService;
+
+    Gson gson = new Gson();
 
     @GetMapping("/listall")
     public ResponseEntity<List<LeagueDBMapper>> getAllLeagues() {
@@ -41,7 +42,7 @@ public class LeagueController {
         logger.info("Scheduler to get leagues started");
         List<LeagueDBMapper> leagues = leagueService.getLeaguesBySeason(year);
         if(leagues!=null && leagues.size()>0){
-            logger.info("response: "+leagues);
+            logger.info("response: "+gson.toJson(leagues));
             logger.info("Scheduler to get leagues ended: leagues count: " + leagues.size());
             return new ResponseEntity<>(leagues, HttpStatus.OK);
         }else{

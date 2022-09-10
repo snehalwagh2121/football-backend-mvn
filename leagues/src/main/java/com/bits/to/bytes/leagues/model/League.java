@@ -1,9 +1,6 @@
 package com.bits.to.bytes.leagues.model;
 
-import com.bits.to.bytes.seasons.dbMapper.SeasonsDBMapper;
 import lombok.*;
-
-import java.util.List;
 
 @Builder
 @Getter
@@ -13,5 +10,4 @@ public class League {
     private String name;
     private String type;
     private String country;
-    private List<SeasonsDBMapper> seasons;
 }
